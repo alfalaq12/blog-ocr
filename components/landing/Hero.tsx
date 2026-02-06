@@ -74,13 +74,13 @@ export function Hero() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8, duration: 1 }}
-                        className="mt-16 pt-8 border-t border-white/5"
+                        className="mt-20 pt-10 border-t border-white/5"
                     >
-                        <p className="text-sm text-gray-500 mb-6">{t.hero.trustedBy}</p>
-                        <div className="flex justify-center items-center gap-8 opacity-70">
+                        <p className="text-sm font-medium text-gray-400 mb-8 uppercase tracking-widest">{t.hero.trustedBy}</p>
+                        <div className="flex justify-center items-center gap-8">
                             {/* PUPR Client */}
-                            <div className="group flex items-center gap-3 transition-opacity">
-                                <div className="relative h-12 w-12 transition-all duration-300 grayscale group-hover:grayscale-0">
+                            <div className="group flex items-center gap-4 transition-all duration-300">
+                                <div className="relative h-14 w-14 md:h-16 md:w-16 transition-all duration-300 drop-shadow-[0_0_8px_rgba(255,255,255,0.1)] group-hover:drop-shadow-[0_0_20px_rgba(234,179,8,0.3)]">
                                     <Image
                                         src="/images/logo-pupr-new.png"
                                         alt="Logo Kementerian PUPR"
@@ -88,7 +88,7 @@ export function Hero() {
                                         className="object-contain"
                                     />
                                 </div>
-                                <span className="text-lg font-semibold text-gray-400 group-hover:text-white transition-colors">Kementerian PUPR</span>
+                                <span className="text-xl md:text-2xl font-bold text-gray-300 group-hover:text-white transition-colors tracking-tight shadow-[0_0_30px_rgba(255,255,255,0)] group-hover:shadow-[0_0_30px_rgba(255,255,255,0.1)]">Kementerian PUPR</span>
                             </div>
                         </div>
                     </motion.div>

@@ -10,6 +10,18 @@ import { useState, useEffect, useRef } from "react";
 export function Features() {
     const { t } = useLanguage();
 
+    const [raindrops, setRaindrops] = useState<{ left: string, delay: number, duration: number }[]>([]);
+
+    useEffect(() => {
+        setRaindrops(
+            Array.from({ length: 10 }).map(() => ({
+                left: `${Math.random() * 100}%`,
+                delay: Math.random() * 5,
+                duration: Math.random() * 5 + 3
+            }))
+        );
+    }, []);
+
     const container = {
         hidden: { opacity: 0 },
         show: {
@@ -77,12 +89,12 @@ export function Features() {
 
                                 {/* Matrix/Data Rain Background Effect */}
                                 <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
-                                    {Array.from({ length: 10 }).map((_, i) => (
+                                    {raindrops.map((drop, i) => (
                                         <motion.div
                                             key={i}
                                             className="absolute text-[10px] text-indigo-500 font-mono writing-vertical-rl"
                                             style={{
-                                                left: `${Math.random() * 100}%`,
+                                                left: drop.left,
                                                 top: -100,
                                             }}
                                             animate={{
@@ -90,10 +102,10 @@ export function Features() {
                                                 opacity: [0, 1, 0]
                                             }}
                                             transition={{
-                                                duration: Math.random() * 5 + 3,
+                                                duration: drop.duration,
                                                 repeat: Infinity,
                                                 ease: "linear",
-                                                delay: Math.random() * 5
+                                                delay: drop.delay
                                             }}
                                         >
                                             {Array.from({ length: 8 }).map(() => Math.random() > 0.5 ? '1' : '0').join(' ')}
