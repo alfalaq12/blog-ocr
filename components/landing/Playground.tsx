@@ -97,7 +97,7 @@ export function Playground() {
                         <p className="mt-4 text-gray-400">{t.playground.description}</p>
                     </div>
 
-                    <div className="grid gap-8 lg:grid-cols-2">
+                    <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
                         {/* Left Panel: Upload / Preview */}
                         <motion.div
                             initial={{ opacity: 0, x: -20 }}
@@ -105,7 +105,7 @@ export function Playground() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
-                            <Card className="relative flex min-h-[500px] flex-col overflow-hidden border-white/10 bg-white/5 p-0 shadow-2xl transition-all hover:border-white/20">
+                            <Card className={`relative flex flex-col overflow-hidden border-white/10 bg-white/5 p-0 shadow-2xl transition-all hover:border-white/20 ${previewUrl ? "h-auto" : "min-h-[350px] sm:min-h-[500px]"}`}>
                                 <input
                                     type="file"
                                     ref={fileInputRef}
@@ -183,7 +183,7 @@ export function Playground() {
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
-                            <Card className="flex flex-col overflow-hidden bg-[#0B0F19] p-0 shadow-2xl border-white/10 h-full min-h-[500px]">
+                            <Card className="flex flex-col overflow-hidden bg-[#0B0F19] p-0 shadow-2xl border-white/10 min-h-[350px] sm:min-h-[500px]">
                                 <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-4 py-3">
                                     <div className="flex items-center gap-2">
                                         <div className="flex gap-1.5">
@@ -208,7 +208,7 @@ export function Playground() {
                                     </div>
                                 </div>
 
-                                <div className="relative flex-1 overflow-auto bg-[#0B0F19] p-4 font-mono text-sm leading-relaxed custom-scrollbar">
+                                <div className="relative flex-1 overflow-auto bg-[#0B0F19] p-4 font-mono text-xs sm:text-sm leading-relaxed custom-scrollbar">
                                     {isAnalyzing ? (
                                         <div className="flex h-full flex-col items-center justify-center space-y-4 py-20">
                                             <div className="relative h-12 w-12">
@@ -223,7 +223,7 @@ export function Playground() {
                                         <motion.pre
                                             initial={{ opacity: 0, y: 10 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            className="text-gray-300 whitespace-pre-wrap"
+                                            className="text-gray-300 text-xs sm:text-sm whitespace-pre-wrap break-all"
                                         >
                                             <code dangerouslySetInnerHTML={{ __html: syntaxHighlight(result) }} />
                                         </motion.pre>

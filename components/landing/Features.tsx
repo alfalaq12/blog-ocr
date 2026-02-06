@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Brain, Cpu, Database, Shield, Server, Zap, Terminal, Activity, Lock, Cloud } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function Features() {
     const { t } = useLanguage();
@@ -71,22 +71,52 @@ export function Features() {
                                 <div className="ml-2 text-[10px] font-mono text-gray-500">neural_engine.py</div>
                             </div>
 
-                            {/* Animated Neural Network */}
-                            <div className="flex-1 relative min-h-[250px] w-full flex items-center justify-center p-8">
+                            {/* Animated Neural Network with Data Stream */}
+                            <div className="flex-1 relative min-h-[250px] w-full flex items-center justify-center p-8 overflow-hidden group-hover:bg-white/2 transition-colors duration-500">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent opacity-50" />
+
+                                {/* Matrix/Data Rain Background Effect */}
+                                <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+                                    {Array.from({ length: 10 }).map((_, i) => (
+                                        <motion.div
+                                            key={i}
+                                            className="absolute text-[10px] text-indigo-500 font-mono writing-vertical-rl"
+                                            style={{
+                                                left: `${Math.random() * 100}%`,
+                                                top: -100,
+                                            }}
+                                            animate={{
+                                                top: ["0%", "120%"],
+                                                opacity: [0, 1, 0]
+                                            }}
+                                            transition={{
+                                                duration: Math.random() * 5 + 3,
+                                                repeat: Infinity,
+                                                ease: "linear",
+                                                delay: Math.random() * 5
+                                            }}
+                                        >
+                                            {Array.from({ length: 8 }).map(() => Math.random() > 0.5 ? '1' : '0').join(' ')}
+                                        </motion.div>
+                                    ))}
+                                </div>
+
                                 <NeuralNetworkAnimation />
 
-                                <div className="absolute top-8 right-8">
-                                    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-green-500/10 border border-green-500/20 backdrop-blur-md">
-                                        <Activity className="w-3 h-3 text-green-400 animate-pulse" />
-                                        <span className="text-xs font-mono text-green-400 tabular-nums">+12.5%</span>
+                                <div className="absolute top-6 right-6">
+                                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 border border-green-500/20 backdrop-blur-md shadow-[0_0_15px_rgba(34,197,94,0.2)]">
+                                        <Activity className="w-3.5 h-3.5 text-green-400 animate-pulse" />
+                                        <div className="flex flex-col leading-none">
+                                            <span className="text-[10px] text-green-400/70 font-xs uppercase tracking-wider">Accuracy</span>
+                                            <span className="text-sm font-bold font-mono text-green-400 tabular-nums">+12.5%</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="p-8 pt-0 z-10">
                                 <div className="flex items-center gap-3 mb-3">
-                                    <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+                                    <div className="p-2 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 shadow-[0_0_10px_rgba(99,102,241,0.3)]">
                                         <Brain className="w-5 h-5" />
                                     </div>
                                     <h3 className="text-xl font-medium text-white">{t.features.learningTitle}</h3>
@@ -232,54 +262,163 @@ function FeatureCard({ children, className }: { children: React.ReactNode; class
 }
 
 function NeuralNetworkAnimation() {
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        // Configuration
+        const nodeCount = 40;
+        const connectionDistance = 100;
+        const rotationSpeed = 0.002;
+
+        let width = canvas.width = canvas.offsetWidth;
+        let height = canvas.height = canvas.offsetHeight;
+
+        // 3D Point Class
+        class Point {
+            x: number;
+            y: number;
+            z: number;
+            vx: number;
+            vy: number;
+            vz: number;
+
+            constructor() {
+                this.x = (Math.random() - 0.5) * width * 0.8;
+                this.y = (Math.random() - 0.5) * height * 0.8;
+                this.z = (Math.random() - 0.5) * 200;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.vz = (Math.random() - 0.5) * 0.5;
+            }
+
+            update() {
+                // Evolving movement
+                this.x += this.vx;
+                this.y += this.vy;
+                this.z += this.vz;
+
+                // Bounds check (soft bounce)
+                const boundX = width * 0.4;
+                const boundY = height * 0.4;
+                const boundZ = 150;
+
+                if (Math.abs(this.x) > boundX) this.vx *= -1;
+                if (Math.abs(this.y) > boundY) this.vy *= -1;
+                if (Math.abs(this.z) > boundZ) this.vz *= -1;
+
+                // Rotate around Y axis
+                const cos = Math.cos(rotationSpeed);
+                const sin = Math.sin(rotationSpeed);
+                const x = this.x * cos - this.z * sin;
+                const z = this.z * cos + this.x * sin;
+                this.x = x;
+                this.z = z;
+            }
+
+            getProjected(viewDistance: number) {
+                const scale = viewDistance / (viewDistance + this.z);
+                return {
+                    x: this.x * scale + width / 2,
+                    y: this.y * scale + height / 2,
+                    scale: scale,
+                    opacity: Math.max(0.1, Math.min(1, (scale - 0.5) * 2)) // Fade out if far back
+                };
+            }
+        }
+
+        // Initialize Points
+        const points: Point[] = Array.from({ length: nodeCount }, () => new Point());
+
+        // Animation Loop
+        let animationFrameId: number;
+        const viewDistance = 400;
+
+        const render = () => {
+            ctx.clearRect(0, 0, width, height);
+
+            // Update points
+            points.forEach(p => p.update());
+
+            // Draw Connections
+            ctx.strokeStyle = "rgba(99, 102, 241, 0.4)"; // Indigo
+            ctx.lineWidth = 0.5;
+
+            for (let i = 0; i < points.length; i++) {
+                for (let j = i + 1; j < points.length; j++) {
+                    const p1 = points[i];
+                    const p2 = points[j];
+
+                    // Simple distance check in 3D
+                    const dx = p1.x - p2.x;
+                    const dy = p1.y - p2.y;
+                    const dz = p1.z - p2.z;
+                    const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+                    if (dist < connectionDistance) {
+                        const proj1 = p1.getProjected(viewDistance);
+                        const proj2 = p2.getProjected(viewDistance);
+
+                        const opacity = (1 - dist / connectionDistance) * proj1.opacity * proj2.opacity;
+                        if (opacity > 0.05) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(99, 102, 241, ${opacity})`;
+                            ctx.moveTo(proj1.x, proj1.y);
+                            ctx.lineTo(proj2.x, proj2.y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Draw Nodes
+            points.forEach(p => {
+                const proj = p.getProjected(viewDistance);
+                ctx.beginPath();
+                ctx.arc(proj.x, proj.y, 2 * proj.scale, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(165, 180, 252, ${proj.opacity})`; // indigo-300
+                ctx.fill();
+
+                // Glow effect for closer nodes
+                if (proj.scale > 1) {
+                    const gradient = ctx.createRadialGradient(proj.x, proj.y, 0, proj.x, proj.y, 6 * proj.scale);
+                    gradient.addColorStop(0, `rgba(99, 102, 241, ${proj.opacity * 0.5})`);
+                    gradient.addColorStop(1, "rgba(99, 102, 241, 0)");
+                    ctx.fillStyle = gradient;
+                    ctx.beginPath();
+                    ctx.arc(proj.x, proj.y, 6 * proj.scale, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+
+            animationFrameId = requestAnimationFrame(render);
+        };
+
+        render();
+
+        const handleResize = () => {
+            width = canvas.width = canvas.offsetWidth;
+            height = canvas.height = canvas.offsetHeight;
+        };
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            cancelAnimationFrame(animationFrameId);
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
-        <svg className="w-full h-full max-w-[300px] max-h-[200px]" viewBox="0 0 300 200">
-            <defs>
-                <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stopColor="#6366f1" stopOpacity="0.1" />
-                    <stop offset="50%" stopColor="#818cf8" stopOpacity="0.5" />
-                    <stop offset="100%" stopColor="#6366f1" stopOpacity="0.1" />
-                </linearGradient>
-            </defs>
-            {/* Layers */}
-            {[0, 1, 2].map((layerIndex) => {
-                const x = 50 + layerIndex * 100;
-                const nodes = layerIndex === 1 ? 4 : 3;
-                return Array.from({ length: nodes }).map((_, nodeIndex) => {
-                    const y = 100 - ((nodes - 1) * 30) / 2 + nodeIndex * 30;
-                    return (
-                        <g key={`${layerIndex}-${nodeIndex}`}>
-                            {/* Connections to next layer */}
-                            {layerIndex < 2 && Array.from({ length: layerIndex === 0 ? 4 : 3 }).map((_, nextIndex) => {
-                                const nextX = 50 + (layerIndex + 1) * 100;
-                                const nextNodes = layerIndex === 0 ? 4 : 3;
-                                const nextY = 100 - ((nextNodes - 1) * 30) / 2 + nextIndex * 30;
-                                return (
-                                    <motion.line
-                                        key={`conn-${nextIndex}`}
-                                        x1={x} y1={y} x2={nextX} y2={nextY}
-                                        stroke="url(#line-gradient)"
-                                        strokeWidth="1"
-                                        initial={{ pathLength: 0, opacity: 0 }}
-                                        whileInView={{ pathLength: 1, opacity: 1 }}
-                                        transition={{ duration: 1.5, delay: layerIndex * 0.2 + nextIndex * 0.1 }}
-                                    />
-                                );
-                            })}
-                            <motion.circle
-                                cx={x} cy={y} r="4"
-                                className="fill-indigo-500"
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                transition={{ delay: layerIndex * 0.2 + nodeIndex * 0.1 }}
-                            >
-                                <animate attributeName="opacity" values="0.4;1;0.4" dur={`${2 + (layerIndex + nodeIndex) * 0.5}s`} repeatCount="indefinite" />
-                            </motion.circle>
-                        </g>
-                    );
-                });
-            })}
-        </svg>
+        <canvas
+            ref={canvasRef}
+            className="w-full h-full max-w-[400px] max-h-[300px]"
+            style={{ filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))' }}
+        />
     );
 }
 

@@ -68,7 +68,7 @@ export function CodeDemo() {
                                         key={tab.id}
                                         onClick={() => setActiveTab(tab.id)}
                                         className={clsx(
-                                            "px-4 py-2.5 text-sm transition-all duration-200 font-medium",
+                                            "px-3 py-2 sm:px-4 sm:py-2.5 text-xs sm:text-sm transition-all duration-200 font-medium",
                                             activeTab === tab.id
                                                 ? "border-b-2 border-primary text-white bg-white/5 shadow-[inset_0_-10px_20px_rgba(255,255,255,0.02)]"
                                                 : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
@@ -78,14 +78,14 @@ export function CodeDemo() {
                                     </button>
                                 ))}
                             </div>
-                            <div className="p-6 overflow-x-auto min-h-[350px] custom-scrollbar">
+                            <div className="p-4 sm:p-6 overflow-x-auto min-h-[250px] sm:min-h-[350px] custom-scrollbar">
                                 <motion.div
                                     key={activeTab}
                                     initial={{ opacity: 0, y: 5 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.3 }}
                                 >
-                                    <pre className="text-sm font-mono leading-relaxed">
+                                    <pre className="text-xs sm:text-sm font-mono leading-relaxed">
                                         {activeTab === "node" && (
                                             <>
                                                 <span className="text-purple-400">import</span> <span className="text-white">{"{"} OCRPUR {"}"}</span> <span className="text-purple-400">from</span> <span className="text-green-400">"@ocr-pur/node"</span>;<br /><br />
