@@ -52,8 +52,8 @@ export function Playground() {
         formData.append("file", file);
 
         try {
-            const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000";
-            const response = await fetch(`${baseUrl}/api/ocr/extract`, {
+            // Use local proxy to avoid Mixed Content (HTTPS -> HTTP) issues
+            const response = await fetch("/api/ocr/extract", {
                 method: "POST",
                 body: formData,
             });
