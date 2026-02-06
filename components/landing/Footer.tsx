@@ -18,15 +18,10 @@ export function Footer() {
                         <span className="text-lg font-semibold text-white">OCR-PUR</span>
                     </div>
 
-                    <div className="flex gap-8 text-sm text-gray-400">
-                        <Link href="#" className="hover:text-white transition-colors">{t.footer.privacy}</Link>
-                        <Link href="#" className="hover:text-white transition-colors">{t.footer.terms}</Link>
-                        <Link href="#" className="hover:text-white transition-colors">Twitter</Link>
-                        <Link href="#" className="hover:text-white transition-colors">GitHub</Link>
-                    </div>
+
 
                     <div className="text-sm text-gray-500">
-                        © 2024 Alfalaq. {t.footer.rights}
+                        © 2026 Bintang. {t.footer.rights}
                     </div>
                 </div>
             </div>

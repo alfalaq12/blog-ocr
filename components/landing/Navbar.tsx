@@ -27,7 +27,7 @@ export function Navbar() {
                     <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/20 text-indigo-400 ring-1 ring-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.2)]">
                         <ScanText className="h-4.5 w-4.5" />
                     </div>
-                    <span className="text-lg font-bold tracking-tight text-white/90">OCR-PUR</span>
+                    <span className="text-lg font-bold tracking-tight text-white/90 whitespace-nowrap">OCR-PUR</span>
                 </div>
 
                 <div className="hidden items-center gap-8 md:flex absolute left-1/2 -translate-x-1/2">
@@ -56,7 +56,7 @@ export function Navbar() {
                     <Link href="https://github.com/alfalaq12/OCR" target="_blank">
                         <Button className="gap-2 rounded-full bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 border border-white/10 shadow-[0_0_15px_rgba(99,102,241,0.3)] h-8 px-4 text-xs font-semibold text-white">
                             <Github className="h-3.5 w-3.5" />
-                            <span>{t.nav.star}</span>
+                            <span className="hidden sm:inline">{t.nav.star}</span>
                         </Button>
                     </Link>
                 </div>

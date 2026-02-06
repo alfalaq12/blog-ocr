@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/Button";
 import { motion } from "framer-motion";
 import { ArrowRight, PlayCircle } from "lucide-react";
+import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/lib/i18n";
 
@@ -18,20 +19,7 @@ export function Hero() {
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                     className="mx-auto max-w-3xl"
                 >
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ delay: 0.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                        className="mb-8 flex justify-center"
-                    >
-                        <div className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-primary backdrop-blur-md shadow-[0_0_20px_rgba(99,102,241,0.2)] ring-1 ring-white/10">
-                            <span className="mr-2 flex h-2 w-2 relative">
-                                <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
-                                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
-                            </span>
-                            <span className="font-medium tracking-wide text-xs">{t.hero.badge}</span>
-                        </div>
-                    </motion.div>
+
 
                     <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
                         <motion.span
@@ -67,12 +55,16 @@ export function Hero() {
                         transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="flex flex-col items-center justify-center gap-4 sm:flex-row"
                     >
-                        <Button size="lg" className="rounded-full px-8 h-12 gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] hover:scale-105 transition-all duration-300 bg-linear-to-r from-indigo-600 to-purple-600 border border-white/10">
-                            {t.hero.getStarted} <ArrowRight className="h-4 w-4" />
-                        </Button>
-                        <Button variant="outline" size="lg" className="rounded-full px-8 h-12 gap-2 backdrop-blur-sm border-white/10 hover:bg-white/5 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300">
-                            <PlayCircle className="h-4 w-4" /> {t.hero.viewDemo}
-                        </Button>
+                        <Link href="#api">
+                            <Button size="lg" className="rounded-full px-8 h-12 gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] hover:scale-105 transition-all duration-300 bg-linear-to-r from-indigo-600 to-purple-600 border border-white/10">
+                                {t.hero.getStarted} <ArrowRight className="h-4 w-4" />
+                            </Button>
+                        </Link>
+                        <Link href="#playground">
+                            <Button variant="outline" size="lg" className="rounded-full px-8 h-12 gap-2 backdrop-blur-sm border-white/10 hover:bg-white/5 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300">
+                                <PlayCircle className="h-4 w-4" /> {t.hero.viewDemo}
+                            </Button>
+                        </Link>
                     </motion.div>
 
                     <motion.div
