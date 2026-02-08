@@ -1,26 +1,17 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = 'https://ocr-pur.vercel.app' // Replace with actual domain when deployed
+    const baseUrl = 'https://ocr-pur.vercel.app'
+    const currentDate = new Date()
 
     return [
         {
             url: baseUrl,
-            lastModified: new Date(),
+            lastModified: currentDate,
             changeFrequency: 'weekly',
             priority: 1,
         },
-        {
-            url: `${baseUrl}/#features`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
-        {
-            url: `${baseUrl}/#api`,
-            lastModified: new Date(),
-            changeFrequency: 'monthly',
-            priority: 0.8,
-        },
+        // Note: Fragment URLs (#features, #api) are not indexed by Google
+        // If you want these sections indexed, create separate pages like /features, /api-docs
     ]
 }

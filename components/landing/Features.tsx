@@ -202,18 +202,25 @@ export function Features() {
 
                     {/* Card 3: MinIO Integration (Small Card) */}
                     <motion.div variants={item} className="md:col-span-1 group">
-                        <FeatureCard className="h-full min-h-[300px] p-0 overflow-hidden flex flex-col">
-                            <div className="flex-1 relative bg-linear-to-b from-white/2 to-transparent p-6 flex flex-col items-center justify-center">
-                                <div className="absolute top-4 right-4 text-[10px] font-mono text-gray-500 border border-white/10 px-1.5 py-0.5 rounded">
+                        <FeatureCard className="h-full min-h-[300px] p-0 overflow-hidden flex flex-col hover:border-red-500/20 transition-all duration-500">
+                            <div className="flex-1 relative bg-linear-to-b from-red-500/5 to-transparent p-6 flex flex-col items-center justify-center group-hover:from-red-500/10 transition-all duration-500">
+                                <div className="absolute top-4 right-4 text-[9px] font-mono text-gray-500 border border-white/10 px-2 py-1 rounded-md bg-black/20 backdrop-blur-sm">
                                     S3 COMPATIBLE
                                 </div>
-                                <DataFlowAnimation />
+
+                                {/* Enhanced Data Flow */}
+                                <div className="relative">
+                                    <div className="absolute inset-0 bg-red-500/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                    <DataFlowAnimation />
+                                </div>
                             </div>
-                            <div className="p-6 border-t border-white/5 bg-black/20">
-                                <h3 className="text-base font-medium text-white mb-1 flex items-center gap-2">
-                                    <Database className="w-4 h-4 text-red-400" />
-                                    {t.features.minioTitle}
-                                </h3>
+                            <div className="p-6 border-t border-white/5 bg-black/30 backdrop-blur-sm">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="p-1.5 rounded-lg bg-red-500/10 border border-red-500/20 shadow-[0_0_10px_rgba(239,68,68,0.2)] group-hover:shadow-[0_0_20px_rgba(239,68,68,0.4)] transition-all duration-300">
+                                        <Database className="w-4 h-4 text-red-400" />
+                                    </div>
+                                    <h3 className="text-base font-semibold text-white">{t.features.minioTitle}</h3>
+                                </div>
                                 <p className="text-xs text-gray-400 leading-relaxed">
                                     {t.features.minioDesc}
                                 </p>
@@ -223,29 +230,43 @@ export function Features() {
 
                     {/* Card 4: Enterprise Security (Small Card) */}
                     <motion.div variants={item} className="md:col-span-1 group">
-                        <FeatureCard className="h-full min-h-[300px] p-0 overflow-hidden flex flex-col">
-                            <div className="flex-1 relative bg-[#1E1E1E] p-4 font-mono text-[10px] leading-4 overflow-hidden group-hover:bg-[#1a1a1a] transition-colors">
-                                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-green-500 to-emerald-500" />
-                                <div className="text-gray-500 select-none mb-2">{'// Secure Configuration'}</div>
-                                <div><span className="text-purple-400">const</span> <span className="text-yellow-200">config</span> = {'{'}</div>
-                                <div className="pl-4"><span className="text-blue-300">key</span>: <span className="text-green-400">"sk_live_..."</span>,</div>
-                                <div className="pl-4"><span className="text-blue-300">role</span>: <span className="text-orange-300">"admin"</span>,</div>
-                                <div className="pl-4"><span className="text-blue-300">acl</span>: [<span className="text-green-300">"read"</span>, <span className="text-green-300">"write"</span>]</div>
-                                <div>{'}'};</div>
+                        <FeatureCard className="h-full min-h-[300px] p-0 overflow-hidden flex flex-col hover:border-green-500/20 transition-all duration-500">
+                            <div className="flex-1 relative bg-[#0D1117] p-5 font-mono text-[11px] leading-5 overflow-hidden group-hover:bg-[#0a0e14] transition-all duration-500">
+                                {/* Top accent bar with glow */}
+                                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-green-500 via-emerald-500 to-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
 
+                                {/* Code with enhanced syntax highlighting */}
+                                <div className="relative z-10">
+                                    <div className="text-gray-500 select-none mb-3 italic">{'// Secure Configuration'}</div>
+                                    <div><span className="text-purple-400 font-semibold">const</span> <span className="text-yellow-300">config</span> <span className="text-gray-400">=</span> <span className="text-gray-300">{'{'}</span></div>
+                                    <div className="pl-4"><span className="text-sky-400">key</span><span className="text-gray-400">:</span> <span className="text-green-400">"sk_live_..."</span><span className="text-gray-400">,</span></div>
+                                    <div className="pl-4"><span className="text-sky-400">role</span><span className="text-gray-400">:</span> <span className="text-orange-400">"admin"</span><span className="text-gray-400">,</span></div>
+                                    <div className="pl-4"><span className="text-sky-400">acl</span><span className="text-gray-400">:</span> <span className="text-gray-300">[</span><span className="text-emerald-400">"read"</span><span className="text-gray-400">,</span> <span className="text-emerald-400">"write"</span><span className="text-gray-300">]</span></div>
+                                    <div><span className="text-gray-300">{'}'}</span><span className="text-gray-400">;</span></div>
+                                </div>
+
+                                {/* Animated shield with enhanced glow */}
                                 <motion.div
                                     className="absolute bottom-4 right-4"
-                                    animate={{ scale: [1, 1.1, 1], opacity: [0.5, 1, 0.5] }}
-                                    transition={{ duration: 3, repeat: Infinity }}
+                                    animate={{
+                                        scale: [1, 1.15, 1],
+                                        opacity: [0.3, 0.6, 0.3]
+                                    }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                                 >
-                                    <Shield className="w-12 h-12 text-green-500/10" />
+                                    <div className="relative">
+                                        <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full" />
+                                        <Shield className="relative w-16 h-16 text-green-500/20" strokeWidth={1.5} />
+                                    </div>
                                 </motion.div>
                             </div>
-                            <div className="p-6 border-t border-white/5 bg-black/20">
-                                <h3 className="text-base font-medium text-white mb-1 flex items-center gap-2">
-                                    <Lock className="w-4 h-4 text-green-400" />
-                                    {t.features.securityTitle}
-                                </h3>
+                            <div className="p-6 border-t border-white/5 bg-black/30 backdrop-blur-sm">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <div className="p-1.5 rounded-lg bg-green-500/10 border border-green-500/20 shadow-[0_0_10px_rgba(34,197,94,0.2)] group-hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all duration-300">
+                                        <Lock className="w-4 h-4 text-green-400" />
+                                    </div>
+                                    <h3 className="text-base font-semibold text-white">{t.features.securityTitle}</h3>
+                                </div>
                                 <p className="text-xs text-gray-400 leading-relaxed">
                                     {t.features.securityDesc}
                                 </p>
@@ -436,28 +457,44 @@ function NeuralNetworkAnimation() {
 
 function DataFlowAnimation() {
     return (
-        <div className="relative w-full h-32 flex items-center justify-center gap-8">
+        <div className="relative w-full h-32 flex items-center justify-center gap-6">
+            {/* App Icon */}
             <div className="flex flex-col items-center gap-2 z-10">
-                <div className="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center">
-                    <Server className="w-6 h-6 text-gray-400" />
-                </div>
-                <div className="text-[10px] text-gray-500 font-mono">APP</div>
+                <motion.div
+                    className="relative w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/20 transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                >
+                    <div className="absolute inset-0 bg-white/5 blur-xl rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Server className="w-6 h-6 text-gray-300 relative z-10" />
+                </motion.div>
+                <div className="text-[10px] text-gray-400 font-mono font-medium">APP</div>
             </div>
 
-            {/* Connection Line */}
-            <div className="flex-1 h-px bg-linear-to-r from-gray-700 via-gray-500 to-gray-700 relative overflow-hidden">
+            {/* Enhanced Connection Line */}
+            <div className="flex-1 h-0.5 bg-linear-to-r from-gray-700 via-red-500/30 to-gray-700 relative overflow-hidden rounded-full">
                 <motion.div
-                    className="absolute top-0 left-0 w-8 h-full bg-white blur-[2px]"
-                    animate={{ left: ["-20%", "120%"] }}
-                    transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                    className="absolute top-0 left-0 w-12 h-full bg-linear-to-r from-transparent via-red-400 to-transparent blur-sm"
+                    animate={{ left: ["-30%", "130%"] }}
+                    transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                />
+                {/* Data packets */}
+                <motion.div
+                    className="absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-red-400 rounded-full shadow-[0_0_8px_rgba(248,113,113,0.8)]"
+                    animate={{ left: ["-5%", "105%"] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 0.5 }}
                 />
             </div>
 
+            {/* MinIO Icon */}
             <div className="flex flex-col items-center gap-2 z-10">
-                <div className="w-12 h-12 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.2)]">
-                    <Database className="w-6 h-6 text-red-400" />
-                </div>
-                <div className="text-[10px] text-red-400/80 font-mono">MinIO</div>
+                <motion.div
+                    className="relative w-14 h-14 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(239,68,68,0.3)] group-hover:shadow-[0_0_30px_rgba(239,68,68,0.5)] transition-all duration-300"
+                    whileHover={{ scale: 1.05 }}
+                >
+                    <div className="absolute inset-0 bg-red-500/20 blur-2xl rounded-xl" />
+                    <Database className="w-7 h-7 text-red-400 relative z-10" />
+                </motion.div>
+                <div className="text-[10px] text-red-400 font-mono font-semibold">MinIO</div>
             </div>
         </div>
     );
