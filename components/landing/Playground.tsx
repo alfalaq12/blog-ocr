@@ -133,11 +133,99 @@ export function Playground() {
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            className="flex flex-1 flex-col items-center justify-center p-8 sm:p-12 text-center cursor-pointer relative"
+                                            className="flex flex-1 flex-col items-center justify-center p-8 sm:p-12 text-center cursor-pointer relative min-h-[400px]"
                                             onClick={handleSelectImage}
                                         >
+                                            {/* MRZ Scanner Background Effects */}
+                                            {/* Scanner Grid */}
+                                            <div className="absolute inset-4 rounded-2xl opacity-30 overflow-hidden"
+                                                style={{
+                                                    backgroundImage: `
+                                                        linear-gradient(to right, rgba(0,255,200,0.1) 1px, transparent 1px),
+                                                        linear-gradient(to bottom, rgba(0,255,200,0.1) 1px, transparent 1px)
+                                                    `,
+                                                    backgroundSize: '30px 30px'
+                                                }}
+                                            />
+
+                                            {/* Animated Scanner Line */}
+                                            <motion.div
+                                                className="absolute left-4 right-4 h-[2px] rounded-full z-20"
+                                                style={{
+                                                    background: 'linear-gradient(90deg, transparent, rgba(0,255,200,0.6) 30%, rgba(0,255,200,0.6) 70%, transparent)',
+                                                    boxShadow: '0 0 20px 5px rgba(0,255,200,0.3)'
+                                                }}
+                                                animate={{ top: ['15%', '85%', '15%'] }}
+                                                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                                            />
+
+                                            {/* Corner Brackets - Top Left */}
+                                            <div className="absolute top-6 left-6 w-6 h-6 z-10">
+                                                <motion.div
+                                                    className="absolute top-0 left-0 w-full h-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity }}
+                                                />
+                                                <motion.div
+                                                    className="absolute top-0 left-0 h-full w-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity }}
+                                                />
+                                            </div>
+                                            {/* Corner Brackets - Top Right */}
+                                            <div className="absolute top-6 right-6 w-6 h-6 z-10">
+                                                <motion.div
+                                                    className="absolute top-0 right-0 w-full h-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                                                />
+                                                <motion.div
+                                                    className="absolute top-0 right-0 h-full w-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+                                                />
+                                            </div>
+                                            {/* Corner Brackets - Bottom Left */}
+                                            <div className="absolute bottom-6 left-6 w-6 h-6 z-10">
+                                                <motion.div
+                                                    className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                                                />
+                                                <motion.div
+                                                    className="absolute bottom-0 left-0 h-full w-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+                                                />
+                                            </div>
+                                            {/* Corner Brackets - Bottom Right */}
+                                            <div className="absolute bottom-6 right-6 w-6 h-6 z-10">
+                                                <motion.div
+                                                    className="absolute bottom-0 right-0 w-full h-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                                                />
+                                                <motion.div
+                                                    className="absolute bottom-0 right-0 h-full w-[2px] bg-cyan-400/70"
+                                                    animate={{ opacity: [0.4, 1, 0.4] }}
+                                                    transition={{ duration: 2, repeat: Infinity, delay: 1.5 }}
+                                                />
+                                            </div>
+
+                                            {/* Scanner Status */}
+                                            <motion.div
+                                                className="absolute top-6 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/60 rounded-full border border-cyan-400/30 z-20"
+                                                animate={{ opacity: [0.5, 1, 0.5] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                            >
+                                                <span className="text-cyan-400 text-[10px] font-mono tracking-widest flex items-center gap-2">
+                                                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" />
+                                                    READY TO SCAN
+                                                </span>
+                                            </motion.div>
+
                                             {/* Animated Border */}
-                                            <div className="absolute inset-4 border-2 border-dashed border-white/10 rounded-2xl group-hover:border-indigo-500/30 transition-colors" />
+                                            <div className="absolute inset-4 border-2 border-dashed border-cyan-400/20 rounded-2xl group-hover:border-cyan-400/40 transition-colors" />
 
                                             {/* Upload Icon with Glow */}
                                             <motion.div
@@ -145,9 +233,9 @@ export function Playground() {
                                                 whileHover={{ scale: 1.05 }}
                                                 transition={{ type: "spring", stiffness: 300 }}
                                             >
-                                                <div className="absolute inset-0 bg-indigo-500/20 blur-2xl rounded-full" />
-                                                <div className="relative flex h-24 w-24 items-center justify-center rounded-2xl bg-linear-to-br from-indigo-500/20 to-purple-500/20 border border-white/10 shadow-lg shadow-indigo-500/20 group-hover:shadow-indigo-500/40 transition-all duration-300">
-                                                    <Upload className="h-10 w-10 text-indigo-400 group-hover:text-indigo-300 transition-colors" />
+                                                <div className="absolute inset-0 bg-cyan-500/20 blur-2xl rounded-full" />
+                                                <div className="relative flex h-24 w-24 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500/20 to-teal-500/20 border border-cyan-400/30 shadow-lg shadow-cyan-500/20 group-hover:shadow-cyan-500/40 transition-all duration-300">
+                                                    <Upload className="h-10 w-10 text-cyan-400 group-hover:text-cyan-300 transition-colors" />
                                                 </div>
                                             </motion.div>
 
@@ -156,7 +244,7 @@ export function Playground() {
 
                                             <Button
                                                 size="lg"
-                                                className="shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 pointer-events-none bg-linear-to-r from-indigo-600 to-purple-600 border-0 z-10"
+                                                className="shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 pointer-events-none bg-gradient-to-r from-cyan-600 to-teal-600 border border-cyan-400/30 z-10"
                                             >
                                                 <Upload className="mr-2 h-4 w-4" />
                                                 {t.playground.select}
@@ -178,15 +266,77 @@ export function Playground() {
                                                     className="max-h-[500px] w-auto rounded-xl object-contain shadow-2xl ring-1 ring-white/10"
                                                 />
 
-                                                {/* Scanning Animation Overlay */}
+                                                {/* MRZ Scanner Animation Overlay */}
                                                 {isAnalyzing && (
                                                     <div className="absolute inset-0 overflow-hidden rounded-xl">
-                                                        <motion.div
-                                                            className="absolute inset-x-0 h-1 bg-linear-to-r from-transparent via-indigo-500 to-transparent shadow-[0_0_20px_rgba(99,102,241,0.8)]"
-                                                            animate={{ top: ["0%", "100%", "0%"] }}
-                                                            transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                                                        {/* Scanner Grid Overlay */}
+                                                        <div className="absolute inset-0 opacity-20"
+                                                            style={{
+                                                                backgroundImage: `
+                                                                    linear-gradient(to right, rgba(0,255,200,0.1) 1px, transparent 1px),
+                                                                    linear-gradient(to bottom, rgba(0,255,200,0.1) 1px, transparent 1px)
+                                                                `,
+                                                                backgroundSize: '20px 20px'
+                                                            }}
                                                         />
-                                                        <div className="absolute inset-0 bg-indigo-500/5 mix-blend-overlay" />
+
+                                                        {/* Main Scanner Line */}
+                                                        <motion.div
+                                                            className="absolute inset-x-0 h-[3px]"
+                                                            style={{
+                                                                background: 'linear-gradient(90deg, transparent, #00ffc8 20%, #00ffc8 80%, transparent)',
+                                                                boxShadow: '0 0 30px 10px rgba(0,255,200,0.5), 0 0 60px 20px rgba(0,255,200,0.3)'
+                                                            }}
+                                                            animate={{ top: ['0%', '100%', '0%'] }}
+                                                            transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                                                        />
+
+                                                        {/* Corner Brackets - Top Left */}
+                                                        <div className="absolute top-4 left-4 w-8 h-8">
+                                                            <div className="absolute top-0 left-0 w-full h-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                            <div className="absolute top-0 left-0 h-full w-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                        </div>
+                                                        {/* Corner Brackets - Top Right */}
+                                                        <div className="absolute top-4 right-4 w-8 h-8">
+                                                            <div className="absolute top-0 right-0 w-full h-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                            <div className="absolute top-0 right-0 h-full w-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                        </div>
+                                                        {/* Corner Brackets - Bottom Left */}
+                                                        <div className="absolute bottom-4 left-4 w-8 h-8">
+                                                            <div className="absolute bottom-0 left-0 w-full h-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                            <div className="absolute bottom-0 left-0 h-full w-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                        </div>
+                                                        {/* Corner Brackets - Bottom Right */}
+                                                        <div className="absolute bottom-4 right-4 w-8 h-8">
+                                                            <div className="absolute bottom-0 right-0 w-full h-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                            <div className="absolute bottom-0 right-0 h-full w-[2px] bg-cyan-400 shadow-[0_0_10px_rgba(0,255,255,0.8)]" />
+                                                        </div>
+
+                                                        {/* MRZ Zone Indicator */}
+                                                        <motion.div
+                                                            className="absolute bottom-12 left-4 right-4 h-16 border-2 border-dashed border-cyan-400/50 rounded-lg"
+                                                            animate={{ opacity: [0.3, 0.8, 0.3] }}
+                                                            transition={{ duration: 1.5, repeat: Infinity }}
+                                                        >
+                                                            <div className="absolute -top-3 left-4 px-2 bg-black text-cyan-400 text-[10px] font-mono tracking-wider">
+                                                                OCR-PUR DETECTION ZONE
+                                                            </div>
+                                                        </motion.div>
+
+                                                        {/* Scanning Text */}
+                                                        <motion.div
+                                                            className="absolute top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-black/80 rounded-full border border-cyan-400/50"
+                                                            animate={{ opacity: [0.5, 1, 0.5] }}
+                                                            transition={{ duration: 1, repeat: Infinity }}
+                                                        >
+                                                            <span className="text-cyan-400 text-xs font-mono tracking-wider flex items-center gap-2">
+                                                                <span className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse" />
+                                                                SCANNING DOCUMENT
+                                                            </span>
+                                                        </motion.div>
+
+                                                        {/* Color Overlay */}
+                                                        <div className="absolute inset-0 bg-cyan-500/5 mix-blend-overlay" />
                                                     </div>
                                                 )}
 

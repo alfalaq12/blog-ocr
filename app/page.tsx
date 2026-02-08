@@ -213,7 +213,8 @@ export default function Home() {
                     <Playground />
                     <CodeDemo />
                     <Pricing />
-                    <Testimonials />
+                    {/* Testimonials - Disabled pending client review */}
+                    {/* <Testimonials /> */}
                     <Integrations />
                     <FAQ />
                     <Newsletter />
