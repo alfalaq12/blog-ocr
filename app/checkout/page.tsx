@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
@@ -239,7 +239,13 @@ function CheckoutContent() {
 export default function CheckoutPage() {
     return (
         <Providers>
-            <CheckoutContent />
+            <React.Suspense fallback={
+                <div className="min-h-screen bg-black flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+                </div>
+            }>
+                <CheckoutContent />
+            </React.Suspense>
         </Providers>
     );
 }
