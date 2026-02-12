@@ -58,12 +58,12 @@ export function Hero() {
                         transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="flex flex-col items-center justify-center gap-4 sm:flex-row"
                     >
-                        <Link href="#api">
+                        <Link href="/playground">
                             <Button size="lg" className="rounded-full px-8 h-12 gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] hover:scale-105 transition-all duration-300 bg-linear-to-r from-indigo-600 to-purple-600 border border-white/10">
                                 {t.hero.getStarted} <ArrowRight className="h-4 w-4" />
                             </Button>
                         </Link>
-                        <Link href="#playground">
+                        <Link href="/docs">
                             <Button variant="outline" size="lg" className="rounded-full px-8 h-12 gap-2 backdrop-blur-sm border-white/10 hover:bg-white/5 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all duration-300">
                                 <PlayCircle className="h-4 w-4" /> {t.hero.viewDemo}
                             </Button>

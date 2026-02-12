@@ -6,9 +6,13 @@ import { Button } from "@/components/ui/Button";
 import { Upload, Loader2, AlertCircle, X, Check, Copy } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
+import { useAuth } from "@/lib/auth-context";
+import { checkScanLimit, incrementScanCount, SCAN_LIMITS } from "@/lib/scan-limit";
+import { UpgradeModal } from "@/components/modals/UpgradeModal";
 
 export function Playground() {
     const { t } = useLanguage();
+    const { user } = useAuth();
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [result, setResult] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -16,7 +20,30 @@ export function Playground() {
     const [copied, setCopied] = useState(false);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
-    const handleSelectImage = () => {
+    // Scan limit states
+    const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+    const [upgradeModalType, setUpgradeModalType] = useState<"login" | "upgrade">("login");
+    const [scansUsed, setScansUsed] = useState(0);
+    const [maxScans, setMaxScans] = useState(SCAN_LIMITS.guest);
+
+    const handleSelectImage = async () => {
+        // Check scan limit before allowing upload
+        const limitResult = await checkScanLimit(user?.id);
+
+        if (!limitResult.allowed) {
+            if (limitResult.requiresLogin) {
+                setUpgradeModalType("login");
+                setScansUsed(SCAN_LIMITS.guest);
+                setMaxScans(SCAN_LIMITS.guest);
+            } else if (limitResult.requiresUpgrade) {
+                setUpgradeModalType("upgrade");
+                setScansUsed(SCAN_LIMITS.free);
+                setMaxScans(SCAN_LIMITS.free);
+            }
+            setShowUpgradeModal(true);
+            return;
+        }
+
         fileInputRef.current?.click();
     };
 
@@ -59,17 +86,28 @@ export function Playground() {
             });
 
             if (!response.ok) {
-                throw new Error(`Error: ${response.status} ${response.statusText}`);
+                const data = await response.json();
+                if (response.status === 429) {
+                    // Rate limit reached
+                    setUpgradeModalType(user ? "upgrade" : "login");
+                    setShowUpgradeModal(true);
+                    throw new Error("Scan limit reached");
+                }
+                throw new Error(data.error || `Error: ${response.status} ${response.statusText}`);
             }
 
             const data = await response.json();
             setResult(JSON.stringify(data, null, 2));
-        } catch (err) {
+
+            // Increment scan count on success
+            await incrementScanCount(user?.id);
+        } catch (err: any) {
             console.error(err);
-            setError("Failed to process image. Make sure backend is running at " + (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"));
+            if (err.message !== "Scan limit reached") {
+                setError("Failed to process image. Make sure backend is running at " + (process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:8000"));
+            }
         } finally {
             setIsAnalyzing(false);
-            // We don't verify connection in a real app usually, but for validity:
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
@@ -447,6 +485,15 @@ export function Playground() {
                     </div>
                 </motion.div>
             </div>
+
+            {/* Upgrade Modal */}
+            <UpgradeModal
+                isOpen={showUpgradeModal}
+                onClose={() => setShowUpgradeModal(false)}
+                type={upgradeModalType}
+                scansUsed={scansUsed}
+                maxScans={maxScans}
+            />
         </section>
     );
 }

@@ -6,11 +6,52 @@ type Language = "en" | "id";
 
 type Translations = {
     nav: {
+        home: string;
+        playground: string;
         features: string;
         api: string;
         pricing: string;
+        integrations: string;
+        dashboard: string;
         signIn: string;
         star: string;
+    };
+    dashboard: {
+        title: string;
+        subtitle: string;
+        upgradeToPro: string;
+        upgradeDescription: string;
+        viewPricing: string;
+        subscription: {
+            active: string;
+            expired: string;
+            expiresOn: string;
+            renew: string;
+        };
+        apiKey: {
+            title: string;
+            noKey: string;
+            generate: string;
+            generating: string;
+            usage: string;
+        };
+        stats: {
+            title: string;
+            totalRequests: string;
+            successful: string;
+            pagesProcessed: string;
+            avgTime: string;
+            noData: string;
+        };
+        quickLinks: {
+            title: string;
+            docs: string;
+            docsDesc: string;
+            playground: string;
+            playgroundDesc: string;
+            integrations: string;
+            integrationsDesc: string;
+        };
     };
     hero: {
         badge: string;
@@ -147,16 +188,81 @@ type Translations = {
         terms: string;
         rights: string;
     };
+    upgradeModal: {
+        loginTitle: string;
+        upgradeTitle: string;
+        loginDesc: string;
+        upgradeDesc: string;
+        loginSubDesc: string;
+        upgradeSubDesc: string;
+        googleLogin: string;
+        loggingIn: string;
+        viewPlans: string;
+        startFrom: string;
+        freeBenefitsTitle: string;
+        proBenefitsTitle: string;
+        freeBenefits: string[];
+        proBenefits: string[];
+    };
+    userDropdown: {
+        plan: string;
+        free: string;
+        pro: string;
+        scansToday: string;
+        upgrade: string;
+        signOut: string;
+    };
 };
 
 const translations: Record<Language, Translations> = {
     en: {
         nav: {
+            home: "Home",
+            playground: "Playground",
             features: "Features",
             api: "API Docs",
             pricing: "Pricing",
+            integrations: "Integrations",
+            dashboard: "Dashboard",
             signIn: "Sign In",
             star: "Star on GitHub",
+        },
+        dashboard: {
+            title: "Dashboard",
+            subtitle: "Manage your API key and view usage statistics",
+            upgradeToPro: "Upgrade to Pro",
+            upgradeDescription: "Get API access, unlimited scans, and advanced features",
+            viewPricing: "View Pricing",
+            subscription: {
+                active: "Pro Subscription Active",
+                expired: "Subscription Expired",
+                expiresOn: "Expires on",
+                renew: "Renew Now",
+            },
+            apiKey: {
+                title: "Your API Key",
+                noKey: "You don't have an API key yet. Generate one to start using the API.",
+                generate: "Generate API Key",
+                generating: "Generating...",
+                usage: "Use this key in the X-API-Key header for all API requests.",
+            },
+            stats: {
+                title: "Usage Statistics",
+                totalRequests: "Total Requests",
+                successful: "Successful",
+                pagesProcessed: "Pages Processed",
+                avgTime: "Avg Time",
+                noData: "No usage data yet. Start using the API to see your stats.",
+            },
+            quickLinks: {
+                title: "Quick Links",
+                docs: "Documentation",
+                docsDesc: "Learn how to use the API",
+                playground: "Playground",
+                playgroundDesc: "Test the OCR in browser",
+                integrations: "Integrations",
+                integrationsDesc: "Connect with your tools",
+            },
         },
         hero: {
             badge: "v2.0 is now live",
@@ -268,7 +374,7 @@ const translations: Record<Language, Translations> = {
                 period: "month",
                 description: "Perfect for testing and small projects.",
                 features: [
-                    "1,000 requests/month",
+                    "20 requests/month",
                     "PaddleOCR & Tesseract engines",
                     "Basic support",
                     "99% uptime SLA",
@@ -282,7 +388,7 @@ const translations: Record<Language, Translations> = {
                 period: "month",
                 description: "For growing businesses and production apps.",
                 features: [
-                    "50,000 requests/month",
+                    "1,000 requests/month",
                     "All OCR engines",
                     "Priority support",
                     "99.9% uptime SLA",
@@ -441,14 +547,89 @@ const translations: Record<Language, Translations> = {
             terms: "Terms",
             rights: "All rights reserved.",
         },
+        upgradeModal: {
+            loginTitle: "Login Required",
+            upgradeTitle: "Upgrade to Pro",
+            loginDesc: "You've used {used}/{max} free scans.",
+            upgradeDesc: "You've reached your daily limit of {max} scans.",
+            loginSubDesc: "Login with Google to get 10 free scans per day!",
+            upgradeSubDesc: "Upgrade to Pro for unlimited scans and priority processing.",
+            googleLogin: "Continue with Google",
+            loggingIn: "Signing in...",
+            viewPlans: "View Pro Plans",
+            startFrom: "Starting from $49/month • 2 days free trial",
+            freeBenefitsTitle: "What you get with a free account:",
+            proBenefitsTitle: "Pro benefits:",
+            freeBenefits: [
+                "10 scans per day",
+                "Basic OCR",
+                "JSON output",
+                "Email support"
+            ],
+            proBenefits: [
+                "Unlimited scans",
+                "Priority processing",
+                "Advanced OCR",
+                "API access"
+            ]
+        },
+        userDropdown: {
+            plan: "Plan",
+            free: "Free",
+            pro: "Pro",
+            scansToday: "Scans Today",
+            upgrade: "Upgrade to Pro",
+            signOut: "Sign Out",
+        },
     },
     id: {
         nav: {
+            home: "Beranda",
+            playground: "Area Bermain",
             features: "Fitur",
             api: "Dokumentasi API",
             pricing: "Harga",
+            integrations: "Integrasi",
+            dashboard: "Dasbor",
             signIn: "Masuk",
             star: "Bintang di GitHub",
+        },
+        dashboard: {
+            title: "Dasbor",
+            subtitle: "Kelola API key dan lihat statistik penggunaan Anda",
+            upgradeToPro: "Upgrade ke Pro",
+            upgradeDescription: "Dapatkan akses API, scan tanpa batas, dan fitur canggih",
+            viewPricing: "Lihat Harga",
+            subscription: {
+                active: "Langganan Pro Aktif",
+                expired: "Langganan Kadaluarsa",
+                expiresOn: "Berlaku hingga",
+                renew: "Perpanjang Sekarang",
+            },
+            apiKey: {
+                title: "API Key Anda",
+                noKey: "Anda belum memiliki API key. Generate untuk mulai menggunakan API.",
+                generate: "Generate API Key",
+                generating: "Generating...",
+                usage: "Gunakan key ini di header X-API-Key untuk semua request API.",
+            },
+            stats: {
+                title: "Statistik Penggunaan",
+                totalRequests: "Total Request",
+                successful: "Berhasil",
+                pagesProcessed: "Halaman Diproses",
+                avgTime: "Waktu Rata-rata",
+                noData: "Belum ada data penggunaan. Mulai gunakan API untuk melihat statistik.",
+            },
+            quickLinks: {
+                title: "Link Cepat",
+                docs: "Dokumentasi",
+                docsDesc: "Pelajari cara menggunakan API",
+                playground: "Area Bermain",
+                playgroundDesc: "Test OCR di browser",
+                integrations: "Integrasi",
+                integrationsDesc: "Hubungkan dengan tools Anda",
+            },
         },
         hero: {
             badge: "v2.0 kini tersedia",
@@ -556,11 +737,11 @@ const translations: Record<Language, Translations> = {
             description: "Pilih paket yang sesuai dengan kebutuhan Anda. Semua paket termasuk fitur OCR inti kami.",
             free: {
                 name: "Gratis",
-                price: "Rp0",
+                price: "$0",
                 period: "bulan",
                 description: "Sempurna untuk pengujian dan proyek kecil.",
                 features: [
-                    "1.000 permintaan/bulan",
+                    "20 permintaan/bulan",
                     "Engine PaddleOCR & Tesseract",
                     "Dukungan dasar",
                     "SLA uptime 99%",
@@ -570,11 +751,11 @@ const translations: Record<Language, Translations> = {
             },
             pro: {
                 name: "Pro",
-                price: "Rp700K",
+                price: "$49",
                 period: "bulan",
                 description: "Untuk bisnis yang berkembang dan aplikasi produksi.",
                 features: [
-                    "50.000 permintaan/bulan",
+                    "1000 permintaan/bulan",
                     "Semua engine OCR",
                     "Dukungan prioritas",
                     "SLA uptime 99.9%",
@@ -732,6 +913,40 @@ const translations: Record<Language, Translations> = {
             privacy: "Privasi",
             terms: "Ketentuan",
             rights: "Hak cipta dilindungi.",
+        },
+        upgradeModal: {
+            loginTitle: "Login Diperlukan",
+            upgradeTitle: "Upgrade ke Pro",
+            loginDesc: "Anda telah menggunakan {used}/{max} scan gratis.",
+            upgradeDesc: "Anda telah mencapai batas harian {max} scan.",
+            loginSubDesc: "Masuk dengan Google untuk mendapatkan 10 scan gratis per hari!",
+            upgradeSubDesc: "Upgrade ke Pro untuk scan tanpa batas dan prioritas pemrosesan.",
+            googleLogin: "Lanjutkan dengan Google",
+            loggingIn: "Sedang masuk...",
+            viewPlans: "Lihat Paket Pro",
+            startFrom: "Mulai dari $49/bulan • Uji coba gratis 2 hari",
+            freeBenefitsTitle: "Yang Anda dapatkan dengan akun gratis:",
+            proBenefitsTitle: "Keuntungan Pro:",
+            freeBenefits: [
+                "10 scan per hari",
+                "OCR Dasar",
+                "Output JSON",
+                "Dukungan Email"
+            ],
+            proBenefits: [
+                "Scan tanpa batas",
+                "Pemrosesan prioritas",
+                "OCR Canggih",
+                "Akses API"
+            ]
+        },
+        userDropdown: {
+            plan: "Paket",
+            free: "Gratis",
+            pro: "Pro",
+            scansToday: "Scan Hari Ini",
+            upgrade: "Upgrade ke Pro",
+            signOut: "Keluar",
         },
     },
 };

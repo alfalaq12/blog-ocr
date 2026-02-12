@@ -3,18 +3,12 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
 import { Stats } from "@/components/landing/Stats";
-import { Playground } from "@/components/landing/Playground";
 import { Features } from "@/components/landing/Features";
 import { UseCases } from "@/components/landing/UseCases";
-import { CodeDemo } from "@/components/landing/CodeDemo";
-import { ApiDocs } from "@/components/landing/ApiDocs";
-import { Pricing } from "@/components/landing/Pricing";
-import { Testimonials } from "@/components/landing/Testimonials";
-import { Integrations } from "@/components/landing/Integrations";
 import { FAQ } from "@/components/landing/FAQ";
 import { Newsletter } from "@/components/landing/Newsletter";
 import { Footer } from "@/components/landing/Footer";
-import { LanguageProvider } from "@/lib/i18n";
+import { Providers } from "@/app/providers";
 
 // Comprehensive JSON-LD Schema for SEO
 const jsonLdSchemas = {
@@ -172,7 +166,7 @@ const jsonLdSchemas = {
 
 export default function Home() {
     return (
-        <LanguageProvider>
+        <Providers>
             {/* WebSite Schema */}
             <script
                 type="application/ld+json"
@@ -209,19 +203,12 @@ export default function Home() {
                     <Stats />
                     <Features />
                     <UseCases />
-                    <ApiDocs />
-                    <Playground />
-                    <CodeDemo />
-                    <Pricing />
-                    {/* Testimonials - Disabled pending client review */}
-                    {/* <Testimonials /> */}
-                    <Integrations />
                     <FAQ />
                     <Newsletter />
                 </div>
 
                 <Footer />
             </main>
-        </LanguageProvider>
+        </Providers>
     );
 }
