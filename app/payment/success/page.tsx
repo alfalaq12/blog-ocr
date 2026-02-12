@@ -1,12 +1,13 @@
 "use client";
 
+import React from "react";
 import { useSearchParams } from "next/navigation";
 import { Navbar } from "@/components/landing/Navbar";
 import { Footer } from "@/components/landing/Footer";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Providers } from "@/app/providers";
-import { CheckCircle, Clock, ArrowRight } from "lucide-react";
+import { CheckCircle, Clock, ArrowRight, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -100,7 +101,13 @@ function SuccessContent() {
 export default function PaymentSuccessPage() {
     return (
         <Providers>
-            <SuccessContent />
+            <React.Suspense fallback={
+                <div className="min-h-screen bg-black flex items-center justify-center">
+                    <Loader2 className="w-8 h-8 text-purple-500 animate-spin" />
+                </div>
+            }>
+                <SuccessContent />
+            </React.Suspense>
         </Providers>
     );
 }
