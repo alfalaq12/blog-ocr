@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
+import { ToastProvider } from "@/components/ui/Toast";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
@@ -95,7 +96,7 @@ export default function RootLayout({
     return (
         <html lang="id" className="dark">
             <body className={clsx(inter.variable, "font-sans antialiased min-h-screen mesh-gradient")}>
-                {children}
+                <ToastProvider>{children}</ToastProvider>
             </body>
         </html>
     );

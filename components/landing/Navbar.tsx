@@ -8,10 +8,12 @@ import { useLanguage } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth-context";
 import { AuthButton } from "@/components/auth/AuthButton";
 import { UserDropdown } from "@/components/auth/UserDropdown";
+import { useToast } from "@/components/ui/Toast";
 
 export function Navbar() {
     const { t, language, setLanguage } = useLanguage();
     const { user, loading } = useAuth();
+    const { showToast } = useToast();
 
     const toggleLanguage = () => {
         setLanguage(language === "en" ? "id" : "en");
@@ -53,9 +55,12 @@ export function Navbar() {
                         {t.nav.integrations}
                     </Link>
                     {user && (
-                        <Link href="/dashboard" className="text-xs font-medium text-purple-400 transition-colors hover:text-purple-300 hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]">
+                        <button
+                            onClick={() => showToast("Fitur Dashboard sedang dalam tahap pengembangan 🚧", "info")}
+                            className="text-xs font-medium text-purple-400 transition-colors hover:text-purple-300 hover:drop-shadow-[0_0_8px_rgba(168,85,247,0.5)] bg-transparent border-none cursor-pointer"
+                        >
                             {t.nav.dashboard}
-                        </Link>
+                        </button>
                     )}
                 </div>
 

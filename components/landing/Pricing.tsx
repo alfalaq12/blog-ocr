@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { useLanguage } from "@/lib/i18n";
 import { useAuth } from "@/lib/auth-context";
 import { UpgradeModal } from "@/components/modals/UpgradeModal";
+import { useToast } from "@/components/ui/Toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -40,10 +41,13 @@ export function Pricing() {
         }
     };
 
+    const { showToast } = useToast();
+
     const handleProClick = () => {
         if (user) {
-            // User logged in, go to checkout
-            router.push("/checkout?plan=pro");
+            // User logged in, show development toast
+            showToast("Sistem pembayaran sedang dalam maintenance/pengembangan 🚧", "warning");
+            // router.push("/checkout?plan=pro");
         } else {
             // Show login modal first
             setShowLoginModal(true);
@@ -128,7 +132,7 @@ export function Pricing() {
                                 description={t.pricing.enterprise.description}
                                 features={t.pricing.enterprise.features}
                                 cta={t.pricing.enterprise.cta}
-                                href="mailto:contact@ocr-pur.com"
+                                href="mailto:bintangal.falag@gmail.com"
                                 popular={false}
                                 iconColor="text-amber-400"
                                 iconBg="bg-amber-500/10"
