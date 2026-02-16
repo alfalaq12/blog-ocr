@@ -25,39 +25,24 @@ export function Hero() {
 
 
                     <h1 className="mb-6 text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-                        <motion.span
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.2, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                            className="block"
-                        >
+                        <span className="block">
                             {t.hero.headline}
-                        </motion.span>
+                        </span>
                         <motion.span
-                            initial={{ opacity: 0, y: 20 }}
+                            initial={{ opacity: 0, y: 15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ delay: 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                             className="block mt-2 text-transparent bg-clip-text bg-linear-to-r from-indigo-400 via-purple-400 to-indigo-400 animate-gradient-x bg-size-[200%_auto]"
                         >
                             {t.hero.headlineHighlight}
                         </motion.span>
                     </h1>
 
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="mx-auto mb-10 max-w-2xl text-lg text-gray-400 sm:text-xl leading-relaxed"
-                    >
+                    <p className="mx-auto mb-10 max-w-2xl text-lg text-gray-400 sm:text-xl leading-relaxed">
                         {t.hero.subhead}
-                    </motion.p>
+                    </p>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex flex-col items-center justify-center gap-4 sm:flex-row"
-                    >
+                    <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
                         <Link href="/playground">
                             <Button size="lg" className="rounded-full px-8 h-12 gap-2 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_35px_rgba(99,102,241,0.5)] hover:scale-105 transition-all duration-300 bg-linear-to-r from-indigo-600 to-purple-600 border border-white/10">
                                 {t.hero.getStarted} <ArrowRight className="h-4 w-4" />
@@ -68,12 +53,12 @@ export function Hero() {
                                 <PlayCircle className="h-4 w-4" /> {t.hero.viewDemo}
                             </Button>
                         </Link>
-                    </motion.div>
+                    </div>
 
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 0.8, duration: 1 }}
+                        transition={{ delay: 0.3, duration: 0.6 }}
                         className="mt-20 pt-10 border-t border-white/5"
                     >
                         <p className="text-sm font-medium text-gray-400 mb-8 uppercase tracking-widest">{t.hero.trustedBy}</p>
@@ -85,6 +70,7 @@ export function Hero() {
                                         src="/images/logo-pupr-new.png"
                                         alt="Logo Kementerian PUPR"
                                         fill
+                                        priority
                                         className="object-contain"
                                     />
                                 </div>

@@ -14,10 +14,10 @@ export function Features() {
 
     useEffect(() => {
         setRaindrops(
-            Array.from({ length: 10 }).map(() => ({
+            Array.from({ length: 5 }).map(() => ({
                 left: `${Math.random() * 100}%`,
                 delay: Math.random() * 5,
-                duration: Math.random() * 5 + 3
+                duration: Math.random() * 5 + 4
             }))
         );
     }, []);
@@ -87,29 +87,38 @@ export function Features() {
                             <div className="flex-1 relative min-h-[250px] w-full flex items-center justify-center p-8 overflow-hidden group-hover:bg-white/2 transition-colors duration-500">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-indigo-500/10 via-transparent to-transparent opacity-50" />
 
-                                {/* Matrix/Data Rain Background Effect */}
+                                {/* Matrix/Data Rain Background Effect — CSS-only for perf */}
                                 <div className="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+                                    <style dangerouslySetInnerHTML={{
+                                        __html: `
+                                        @keyframes dataRainFall {
+                                            0% { transform: translateY(-100px); opacity: 0; }
+                                            10% { opacity: 1; }
+                                            90% { opacity: 1; }
+                                            100% { transform: translateY(120%); opacity: 0; }
+                                        }
+                                        .data-rain-drop {
+                                            position: absolute;
+                                            font-size: 10px;
+                                            color: rgb(99 102 241);
+                                            font-family: ui-monospace, monospace;
+                                            writing-mode: vertical-rl;
+                                            will-change: transform;
+                                            animation: dataRainFall var(--rain-dur) linear var(--rain-delay) infinite;
+                                        }
+                                    `}} />
                                     {raindrops.map((drop, i) => (
-                                        <motion.div
+                                        <div
                                             key={i}
-                                            className="absolute text-[10px] text-indigo-500 font-mono writing-vertical-rl"
+                                            className="data-rain-drop"
                                             style={{
                                                 left: drop.left,
-                                                top: -100,
-                                            }}
-                                            animate={{
-                                                top: ["0%", "120%"],
-                                                opacity: [0, 1, 0]
-                                            }}
-                                            transition={{
-                                                duration: drop.duration,
-                                                repeat: Infinity,
-                                                ease: "linear",
-                                                delay: drop.delay
+                                                ['--rain-dur' as string]: `${drop.duration}s`,
+                                                ['--rain-delay' as string]: `${drop.delay}s`,
                                             }}
                                         >
-                                            {Array.from({ length: 8 }).map(() => Math.random() > 0.5 ? '1' : '0').join(' ')}
-                                        </motion.div>
+                                            01 10 01 10
+                                        </div>
                                     ))}
                                 </div>
 
@@ -161,7 +170,9 @@ export function Features() {
                                                 className="h-full bg-linear-to-r from-blue-600 to-cyan-500 relative"
                                                 initial={{ width: 0 }}
                                                 whileInView={{ width: "96%" }}
-                                                transition={{ duration: 1.5, delay: 0.2 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const }}
+                                                style={{ willChange: "width" }}
                                             >
                                                 <div className="absolute right-0 top-0 bottom-0 w-px bg-white/50 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
                                             </motion.div>
@@ -179,7 +190,9 @@ export function Features() {
                                                 className="h-full bg-linear-to-r from-amber-600 to-orange-500 relative"
                                                 initial={{ width: 0 }}
                                                 whileInView={{ width: "88%" }}
-                                                transition={{ duration: 1.5, delay: 0.4 }}
+                                                viewport={{ once: true }}
+                                                transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+                                                style={{ willChange: "width" }}
                                             >
                                                 <div className="absolute right-0 top-0 bottom-0 w-px bg-white/50 shadow-[0_0_10px_rgba(255,255,255,0.8)]" />
                                             </motion.div>
@@ -305,9 +318,9 @@ function NeuralNetworkAnimation() {
         if (!ctx) return;
 
         // Configuration
-        const nodeCount = 40;
-        const connectionDistance = 100;
-        const rotationSpeed = 0.002;
+        const nodeCount = 25;
+        const connectionDistance = 110;
+        const rotationSpeed = 0.0015;
 
         let width = canvas.width = canvas.offsetWidth;
         let height = canvas.height = canvas.offsetHeight;
@@ -373,6 +386,10 @@ function NeuralNetworkAnimation() {
         const viewDistance = 400;
 
         const render = () => {
+            if (document.hidden) {
+                animationFrameId = requestAnimationFrame(render);
+                return;
+            }
             ctx.clearRect(0, 0, width, height);
 
             // Update points
@@ -450,7 +467,7 @@ function NeuralNetworkAnimation() {
         <canvas
             ref={canvasRef}
             className="w-full h-full max-w-[400px] max-h-[300px]"
-            style={{ filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))' }}
+            style={{ filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))', willChange: 'transform' }}
         />
     );
 }

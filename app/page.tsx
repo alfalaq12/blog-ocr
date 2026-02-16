@@ -1,14 +1,17 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
-import { Stats } from "@/components/landing/Stats";
-import { Features } from "@/components/landing/Features";
-import { UseCases } from "@/components/landing/UseCases";
-import { FAQ } from "@/components/landing/FAQ";
-import { Newsletter } from "@/components/landing/Newsletter";
-import { Footer } from "@/components/landing/Footer";
 import { Providers } from "@/app/providers";
+
+// Lazy-load below-fold sections to reduce initial JS bundle and improve LCP
+const Stats = dynamic(() => import("@/components/landing/Stats").then(m => ({ default: m.Stats })), { ssr: false });
+const Features = dynamic(() => import("@/components/landing/Features").then(m => ({ default: m.Features })), { ssr: false });
+const UseCases = dynamic(() => import("@/components/landing/UseCases").then(m => ({ default: m.UseCases })), { ssr: false });
+const FAQ = dynamic(() => import("@/components/landing/FAQ").then(m => ({ default: m.FAQ })), { ssr: false });
+const Newsletter = dynamic(() => import("@/components/landing/Newsletter").then(m => ({ default: m.Newsletter })), { ssr: false });
+const Footer = dynamic(() => import("@/components/landing/Footer").then(m => ({ default: m.Footer })), { ssr: false });
 
 // Comprehensive JSON-LD Schema for SEO
 const jsonLdSchemas = {
