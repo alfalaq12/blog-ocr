@@ -19,7 +19,7 @@ const menuItemVariants = {
         transition: {
             delay: i * 0.05,
             duration: 0.35,
-            ease: [0.16, 1, 0.3, 1],
+            ease: [0.16, 1, 0.3, 1] as const,
         },
     }),
     exit: { opacity: 0, x: -8, transition: { duration: 0.15 } },
@@ -117,7 +117,7 @@ export function Navbar() {
             ref={navRef}
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
             className={`absolute top-4 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-5xl border border-white/10 bg-[#0A0A0A]/60 backdrop-blur-md shadow-[0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-white/5 transition-[border-radius] duration-300 ${isMenuOpen ? "rounded-2xl" : "rounded-full"}`}
         >
             <div className={`absolute inset-0 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)] pointer-events-none transition-[border-radius] duration-300 ${isMenuOpen ? "rounded-2xl" : "rounded-full"}`} />
@@ -188,7 +188,7 @@ export function Navbar() {
                             className="absolute"
                             initial={false}
                             animate={{ rotate: isMenuOpen ? 90 : 0, opacity: isMenuOpen ? 0 : 1 }}
-                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
                         >
                             <Menu className="h-4 w-4" />
                         </motion.span>
@@ -196,7 +196,7 @@ export function Navbar() {
                             className="absolute"
                             initial={false}
                             animate={{ rotate: isMenuOpen ? 0 : -90, opacity: isMenuOpen ? 1 : 0 }}
-                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
                         >
                             <X className="h-4 w-4" />
                         </motion.span>
